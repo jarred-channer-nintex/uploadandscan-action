@@ -113,6 +113,8 @@ async function run() {
       buildId = await createBuild(vid, vkey, jarName, veracodeApp.appId, version, deleteincompletescan);  
       core.info(`Veracode Policy Scan Created, Build Id: ${buildId}`);
     }
+
+    core.setOutput("buildid", buildid);
   } catch (error) {
     core.setFailed('Failed to create Veracode Scan. App not in state where new builds are allowed.');
     return;

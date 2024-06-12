@@ -52,6 +52,10 @@ inputs:
     required: false
     default: ''
 
+outputs:
+  buildid:
+    description: 'The build id of the submitted scan'
+
 runs:
   using: 'node20'
   main: 'dist/index.js'
