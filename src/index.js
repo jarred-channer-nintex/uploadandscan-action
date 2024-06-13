@@ -105,17 +105,20 @@ async function run() {
       else{
         core.info(`Sandbox Found: ${sandboxID} - ${sandboxGUID}`);
         buildId = await createSandboxBuild(vid, vkey, jarName, veracodeApp.appId, version, deleteincompletescan, sandboxID);
+        core.setOutput("buildid", buildid);
+        core.info("buildid", buildid);
+
         core.info(`Veracode Sandbox Scan Created, Build Id: ${buildId}`);
       }
     }
     else{
       core.info(`Running a Policy Scan: ${appname}`);
-      buildId = await createBuild(vid, vkey, jarName, veracodeApp.appId, version, deleteincompletescan);  
+      buildId = await createBuild(vid, vkey, jarName, veracodeApp.appId, version, deleteincompletescan);
       core.info(`Veracode Policy Scan Created, Build Id: ${buildId}`);
     }
 
-    core.setOutput("buildid", buildid);
   } catch (error) {
+    core.error(error);
     core.setFailed('Failed to create Veracode Scan. App not in state where new builds are allowed.');
     return;
   }
@@ -132,7 +135,7 @@ async function run() {
 
   core.info(`scantimeout: ${scantimeout}`);
   core.info(`include: ${include}`)
-  
+
   if (include === '' && uploaded > 0) {
     const autoScan = true;
     await beginPreScan(vid, vkey, jarName, veracodeApp.appId, autoScan, sandboxID);
@@ -140,7 +143,7 @@ async function run() {
       core.info('Static Scan Submitted, please check Veracode Platform for results');
       return;
     }
-  } 
+  }
   else if (uploaded > 0)
   {
     const autoScan = false;
@@ -167,7 +170,7 @@ async function run() {
     const scan = await beginScan(vid, vkey, jarName, veracodeApp.appId, moduleIds.toString(), sandboxID);
     core.info(`Scan Submitted: ${scan}`);
   }
-  else 
+  else
   {
     console.log('No artifacts to upload');
   }
@@ -186,7 +189,7 @@ async function run() {
         moduleSelectionStartTime = new Date();
       if (new Date() - moduleSelectionStartTime > appConfig().moduleSelectionTimeout) {
         core.setFailed('Veracode Policy Scan Exited: Module Selection Timeout Exceeded. ' +
-          'Please review the scan on Veracode Platform.' + 
+          'Please review the scan on Veracode Platform.' +
           `https://analysiscenter.veracode.com/auth/index.jsp#HomeAppProfile:${veracodeApp.oid}:${veracodeApp.appId}`);
         responseCode = SCAN_TIME_OUT;
         return responseCode;
@@ -207,7 +210,7 @@ async function run() {
         core.info(`Policy Evaluation: ${statusUpdate.passFail}`)
       }
     }
-    
+
     if (endTime < new Date()) {
       core.setFailed(`Veracode Policy Scan Exited: Scan Timeout Exceeded`);
       responseCode = SCAN_TIME_OUT;

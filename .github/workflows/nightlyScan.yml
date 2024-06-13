@@ -1,6 +1,6 @@
 name: Veracode Security Scan
 
-on: 
+on:
   pull_request:
     branches:
       - main
@@ -35,9 +35,9 @@ jobs:
       - name: Run Veracode Policy scan
         uses: veracode/veracode-uploadandscan-action@0.2.6
         with:
-          appname: 'GitHub UploadAndScan Action'
+          appname: "GitHub UploadAndScan Action"
           createprofile: false
-          filepath: 'app.zip'
+          filepath: "app.zip"
           scantimeout: 30
-          vid: '${{ secrets.API_ID }}'
-          vkey: '${{ secrets.API_KEY }}'
+          vid: "${{ secrets.API_ID }}"
+          vkey: "${{ secrets.API_KEY }}"

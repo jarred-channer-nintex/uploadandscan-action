@@ -1,62 +1,61 @@
-name: 'Veracode Policy Scan'
-description: 'Upload files to Veracode and start a static policy scan.'
+name: "Veracode Policy Scan"
+description: "Upload files to Veracode and start a static policy scan."
 inputs:
   vid:
-    description: 'Veracode ID'
+    description: "Veracode ID"
     required: true
   vkey:
-    description: 'Veracode Key'
+    description: "Veracode Key"
     required: true
   appname:
-    description: 'Veracode Application Name'
+    description: "Veracode Application Name"
     required: true
   version:
-    description: 'Veracode Version Number'
+    description: "Veracode Version Number"
     required: true
   filepath:
-    description: 'File Path to upload'
+    description: "File Path to upload"
     required: true
   createprofile:
-    description: 'Create a new profile. Boolean'
+    description: "Create a new profile. Boolean"
     required: true
     default: false
   include:
-    description: 'Modules to include in scan'
+    description: "Modules to include in scan"
     required: false
-    default: ''
+    default: ""
   policy:
-    description: 'Veracode Policy Name'
+    description: "Veracode Policy Name"
     required: false
-    default: ''
+    default: ""
   teams:
-    description: 'Veracode Team Name'
+    description: "Veracode Team Name"
     required: false
-    default: ''
+    default: ""
   scantimeout:
-    description: 'Scan Timeout in minutes'
+    description: "Scan Timeout in minutes"
     required: false
   deleteincompletescan:
-    description: 'Delete a broken or running policy scan'
+    description: "Delete a broken or running policy scan"
     required: false
     default: false
   failbuild:
-    description: 'Fail the build if the scan fails'
+    description: "Fail the build if the scan fails"
     required: false
     default: true
   createsandbox:
-    description: 'Create a sandbox for the scan'
+    description: "Create a sandbox for the scan"
     required: false
     default: false
   sandboxname:
-    description: 'Sandbox Name'
+    description: "Sandbox Name"
     required: false
-    default: ''
+    default: ""
 
 outputs:
   buildid:
-    description: 'The build id of the submitted scan'
+    description: "The build id of the submitted scan"
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
-
+  using: "node20"
+  main: "dist/index.js"
