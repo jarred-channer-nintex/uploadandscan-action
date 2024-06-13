@@ -21,6 +21,8 @@ const failbuild = core.getInput('failbuild', { required: false });
 const createsandbox = core.getInput('createsandbox', { required: false });
 const sandboxname = core.getInput('sandboxname', { required: false });
 
+core.info(`IM HERE`);
+
 const POLICY_EVALUATION_FAILED = 9;
 const SCAN_TIME_OUT = 8;
 
@@ -49,6 +51,7 @@ function checkParameters() {
 }
 
 async function run() {
+  core.info(`IN RUN`);
   let responseCode = 0;
 
   if (!checkParameters())
