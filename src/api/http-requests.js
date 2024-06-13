@@ -1,21 +1,28 @@
-const axios = require('axios');
-const { calculateAuthorizationHeader } = require('./veracode-hmac.js');
-const appConfig = require('../app-cofig.js');
-const core = require('@actions/core');
+const axios = require("axios");
+const { calculateAuthorizationHeader } = require("./veracode-hmac.js");
+const appConfig = require("../app-cofig.js");
+const core = require("@actions/core");
 
-async function getResourceByAttribute (vid, vkey, resource) {
+async function getResourceByAttribute(vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
   const queryAttribute = resource.queryAttribute;
   const queryValue = resource.queryValue;
   const queryAttribute2 = resource.queryAttribute2;
   const queryValue2 = resource.queryValue2;
-  var urlQueryParams = queryAttribute !== '' ? `?${queryAttribute}=${queryValue}` : '';
-  if ( queryAttribute2 ){
-    urlQueryParams = urlQueryParams+`&${queryAttribute2}=${queryValue2}`;
+  var urlQueryParams =
+    queryAttribute !== "" ? `?${queryAttribute}=${queryValue}` : "";
+  if (queryAttribute2) {
+    urlQueryParams = urlQueryParams + `&${queryAttribute2}=${queryValue2}`;
   }
   const headers = {
-    'Authorization': calculateAuthorizationHeader(vid, vkey, appConfig().hostName, resourceUri, 
-      urlQueryParams, 'GET')
+    Authorization: calculateAuthorizationHeader(
+      vid,
+      vkey,
+      appConfig().hostName,
+      resourceUri,
+      urlQueryParams,
+      "GET",
+    ),
   };
 
   const appUrl = `https://${appConfig().hostName}${resourceUri}${urlQueryParams}`;
@@ -27,10 +34,17 @@ async function getResourceByAttribute (vid, vkey, resource) {
   }
 }
 
-async function getResource (vid, vkey, resource) {
+async function getResource(vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
   const headers = {
-    'Authorization': calculateAuthorizationHeader(vid, vkey, appConfig().hostName, resourceUri, '', 'GET')
+    Authorization: calculateAuthorizationHeader(
+      vid,
+      vkey,
+      appConfig().hostName,
+      resourceUri,
+      "",
+      "GET",
+    ),
   };
   const appUrl = `https://${appConfig().hostName}${resourceUri}`;
   try {
@@ -45,8 +59,14 @@ async function createResource(vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
   const resourceData = resource.resourceData;
   const headers = {
-    'Authorization': calculateAuthorizationHeader(vid, vkey, appConfig().hostName, resourceUri, 
-      '', 'POST')
+    Authorization: calculateAuthorizationHeader(
+      vid,
+      vkey,
+      appConfig().hostName,
+      resourceUri,
+      "",
+      "POST",
+    ),
   };
 
   const appUrl = `https://${appConfig().hostName}${resourceUri}`;
