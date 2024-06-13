@@ -172,8 +172,8 @@ async function run() {
           deleteincompletescan,
           sandboxID,
         );
-        core.setOutput("buildid", buildid);
-        core.info("buildid", buildid);
+        core.setOutput("buildid", buildId);
+        core.info("buildid", buildId);
 
         core.info(`Veracode Sandbox Scan Created, Build Id: ${buildId}`);
       }
